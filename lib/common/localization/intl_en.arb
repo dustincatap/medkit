@@ -1,4 +1,7 @@
 {
     "generalCancel": "Cancel",
-    "generalOk": "OK"
+    "generalOk": "OK",
+    "generalStart": "Start",
+    "landingMed": "Med",
+    "landingKit": "Kit"
 }

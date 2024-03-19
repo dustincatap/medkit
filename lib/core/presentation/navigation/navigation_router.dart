@@ -20,6 +20,7 @@ class NavigationRouterImpl extends $NavigationRouterImpl implements NavigationRo
   List<AutoRoute> get routes {
     return <AutoRoute>[
       AutoRoute(page: LandingViewRoute.page, path: '/'),
+      AutoRoute(page: DashboardViewRoute.page, path: '/dashboard'),
     ];
   }
 }

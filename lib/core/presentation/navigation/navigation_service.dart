@@ -22,7 +22,7 @@ class NavigationService {
   }
 
   Future<T?> replace<T extends Object>(PageRouteInfo route, {OnNavigationFailure? onFailure}) async {
-    final T? result = await _router.replace(route, onFailure: onFailure);
+    final T? result = await _router.replace(route, onFailure: onFailure) as T?;
 
     return result;
   }
