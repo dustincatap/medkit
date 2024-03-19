@@ -1,0 +1,35 @@
+name: medkit
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  auto_route: ^7.9.0
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  get_it: ^7.6.7
+  injectable: ^2.3.5
+  logging: ^1.2.0
+  meta: ^1.11.0
+
+dev_dependencies:
+  auto_route_generator: ^7.3.2
+  build_runner: ^2.4.8
+  flutter_test:
+    sdk: flutter
+  injectable_generator: ^2.5.1
+
+flutter:
+  uses-material-design: true
+
+flutter_intl:
+  enabled: true
+  class_name: Il8n
+  arb_dir: lib/common/localization
+  output_dir: lib/common/localization/generated
