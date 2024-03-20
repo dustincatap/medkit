@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
+import 'package:medkit/core/presentation/view_models/initializable.dart';
 
 class ViewModelProvider<T> extends InheritedWidget {
   const ViewModelProvider({
@@ -56,7 +59,13 @@ class _ViewModelBuilderState<TViewModel> extends State<ViewModelBuilder<TViewMod
   void initState() {
     super.initState();
 
-    _currentViewModel = widget.create(context);
+    final TViewModel viewModel = widget.create(context);
+
+    if (viewModel is Initializable) {
+      unawaited(viewModel.onInitialize());
+    }
+
+    _currentViewModel = viewModel;
   }
 
   @override

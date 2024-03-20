@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:medkit/common/localization/generated/l10n.dart';
-import 'package:medkit/core/dependency_injection/service_locator.dart';
+import 'package:medkit/core/infrastructure/dependency_injection/service_locator.dart';
 import 'package:medkit/core/presentation/navigation/navigation_logger.dart';
 import 'package:medkit/core/presentation/navigation/navigation_router.dart';
 
@@ -48,7 +48,11 @@ class _AppState extends State<App> {
       ),
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.light(primary: primaryColor),
+        colorScheme: ColorScheme.light(
+          primary: primaryColor,
+          background: Colors.grey.shade50,
+        ),
+        scaffoldBackgroundColor: Colors.grey.shade100,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -58,7 +62,7 @@ class _AppState extends State<App> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            minimumSize: MaterialStateProperty.all<Size>(const Size(200, 56)),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(200, 48)),
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             overlayColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(0.1)),
             shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -67,6 +71,26 @@ class _AppState extends State<App> {
               ),
             ),
           ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          suffixIconColor: Colors.grey.shade600,
+          hintStyle: TextStyle(color: Colors.grey.shade600),
         ),
       ),
       localizationsDelegates: const <LocalizationsDelegate<Object>>[

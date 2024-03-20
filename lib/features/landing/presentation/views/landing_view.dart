@@ -1,8 +1,10 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:medkit/core/dependency_injection/service_locator.dart';
+import 'package:medkit/common/resources/assets.gen.dart';
+import 'package:medkit/core/infrastructure/dependency_injection/service_locator.dart';
 import 'package:medkit/core/presentation/navigation/navigation_router.gr.dart';
 import 'package:medkit/core/presentation/widgets/context_extensions.dart';
+import 'package:medkit/core/presentation/widgets/med_kit_text.dart';
 import 'package:medkit/core/presentation/widgets/spaced_column.dart';
 import 'package:medkit/core/presentation/widgets/views.dart';
 import 'package:medkit/features/landing/presentation/view_models/landing_view_model.dart';
@@ -56,29 +58,8 @@ class _LandingViewMedKit extends StatelessWidget {
     return SpacedColumn(
       spacing: 24,
       children: <Widget>[
-        const Icon(
-          Icons.medical_services_rounded,
-          size: 224,
-          color: Colors.indigo,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              context.il8n.landingMed,
-              style: context.theme.textTheme.displayMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: context.theme.colorScheme.primary,
-              ),
-            ),
-            Text(
-              context.il8n.landingKit,
-              style: context.theme.textTheme.displayMedium?.copyWith(
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ],
-        ),
+        Assets.graphics.icMedkit.image(width: 224),
+        const MedKitText(),
       ],
     );
   }

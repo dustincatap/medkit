@@ -1,0 +1,1 @@
+enum Allergen { shellfish, fruit }

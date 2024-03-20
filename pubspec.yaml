@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  auto_mappr_annotation: ^2.1.0
   auto_route: ^7.9.0
   equatable: ^2.0.5
   flutter:
@@ -15,18 +16,30 @@ dependencies:
     sdk: flutter
   get_it: ^7.6.7
   injectable: ^2.3.5
+  intl: ^0.18.1
   logging: ^1.2.0
   meta: ^1.11.0
 
 dev_dependencies:
+  auto_mappr: ^2.3.0
   auto_route_generator: ^7.3.2
   build_runner: ^2.4.8
+  flutter_gen_runner: ^5.4.0
   flutter_test:
     sdk: flutter
   injectable_generator: ^2.5.1
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/graphics/
+
+flutter_gen:
+  output: lib/common/resources
+  line_length: 120
+  fonts:
+    enabled: false
 
 flutter_intl:
   enabled: true

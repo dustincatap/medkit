@@ -1,0 +1,1 @@
+enum AppointmentCategory { general, cardiology }

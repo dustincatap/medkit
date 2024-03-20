@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:medkit/core/dependency_injection/service_registrar.config.dart';
+import 'package:medkit/core/infrastructure/dependency_injection/service_registrar.config.dart';
 
 @InjectableInit(
   initializerName: r'$register',
