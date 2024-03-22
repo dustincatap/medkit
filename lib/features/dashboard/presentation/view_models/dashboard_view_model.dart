@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medkit/core/domain/models/result.dart';
+import 'package:medkit/core/presentation/navigation/navigation_router.gr.dart';
+import 'package:medkit/core/presentation/navigation/navigation_service.dart';
 import 'package:medkit/core/presentation/view_models/initializable.dart';
 import 'package:medkit/features/appointments/domain/models/appointment.dart';
 import 'package:medkit/features/appointments/domain/services/appointment_service.dart';
@@ -11,11 +13,17 @@ import 'package:medkit/features/user/domain/services/user_profile_service.dart';
 
 @injectable
 class DashboardViewModel implements Initializable {
+  final NavigationService _navigationService;
   final UserProfileService _userProfileService;
   final AppointmentService _appointmentService;
   final MedicationService _medicationService;
 
-  DashboardViewModel(this._userProfileService, this._appointmentService, this._medicationService);
+  DashboardViewModel(
+    this._navigationService,
+    this._userProfileService,
+    this._appointmentService,
+    this._medicationService,
+  );
 
   ValueListenable<UserProfile> get userProfile => _userProfile;
   final ValueNotifier<UserProfile> _userProfile = ValueNotifier<UserProfile>(UserProfile.empty);
@@ -31,6 +39,10 @@ class DashboardViewModel implements Initializable {
     await _onGetUserProfile();
     await _onGetAppointments();
     await _onGetMedications();
+  }
+
+  Future<void> onNavigateToUserProfile() async {
+    await _navigationService.push(const UserProfileViewRoute());
   }
 
   Future<void> _onGetUserProfile() async {

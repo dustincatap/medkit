@@ -4,6 +4,7 @@ import 'package:medkit/core/infrastructure/dependency_injection/service_locator.
 import 'package:medkit/core/presentation/navigation/navigation_router.gr.dart';
 import 'package:medkit/core/presentation/widgets/context_extensions.dart';
 import 'package:medkit/core/presentation/widgets/med_kit_text.dart';
+import 'package:medkit/core/presentation/widgets/rounded_network_image.dart';
 import 'package:medkit/core/presentation/widgets/spaced_column.dart';
 import 'package:medkit/core/presentation/widgets/views.dart';
 import 'package:medkit/features/appointments/domain/models/appointment.dart';
@@ -61,11 +62,14 @@ class _DashboardViewAppBar extends StatelessWidget implements PreferredSizeWidge
           child: ValueListenableBuilder<UserProfile>(
             valueListenable: context.viewModel<DashboardViewModel>().userProfile,
             builder: (BuildContext context, UserProfile userProfile, _) {
-              return CircleAvatar(
-                foregroundImage: userProfile.profilePictureUrl.isNotEmpty
-                    ? Image.network(userProfile.profilePictureUrl).image
-                    : null,
-                child: const Icon(Icons.person),
+              return GestureDetector(
+                onTap: context.viewModel<DashboardViewModel>().onNavigateToUserProfile,
+                child: RoundedNetworkImage(
+                  imageUrl: userProfile.profilePictureUrl,
+                  radius: 16,
+                  width: 40,
+                  height: 40,
+                ),
               );
             },
           ),
@@ -83,20 +87,20 @@ class _DashboardViewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SpacedColumn(
+    return SpacedColumn(
       spacing: 28,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         TextField(
           decoration: InputDecoration(
-            hintText: 'Search doctors, appointments...',
-            suffixIcon: Icon(Icons.search),
+            hintText: context.il8n.searchDoctorsAppointments,
+            suffixIcon: const Icon(Icons.search),
           ),
         ),
-        _DashboardViewAppointmentsList(),
-        _DashboardCurrentMedicationsGridList(),
-        _DashboardViewFindYourDoctorGridList(),
+        const _DashboardViewAppointmentsList(),
+        const _DashboardCurrentMedicationsGridList(),
+        const _DashboardViewFindYourDoctorGridList(),
       ],
     );
   }
@@ -115,7 +119,7 @@ class _DashboardViewAppointmentsList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Upcoming appointments',
+              context.il8n.upcomingAppointments,
               style: context.theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: context.theme.colorScheme.primary,
@@ -123,7 +127,7 @@ class _DashboardViewAppointmentsList extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {},
-              child: const Text('View all'),
+              child: Text(context.il8n.generalViewAll),
             ),
           ],
         ),
@@ -131,10 +135,10 @@ class _DashboardViewAppointmentsList extends StatelessWidget {
           valueListenable: context.viewModel<DashboardViewModel>().appointments,
           builder: (BuildContext context, Iterable<Appointment> appointments, Widget? child) {
             if (appointments.isEmpty) {
-              return const SizedBox(
+              return SizedBox(
                 height: 200,
                 child: Center(
-                  child: Text('No upcoming appointments'),
+                  child: Text(context.il8n.noUpcomingAppointments),
                 ),
               );
             }
@@ -163,7 +167,7 @@ class _DashboardCurrentMedicationsGridList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Current medications',
+              context.il8n.currentMedications,
               style: context.theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: context.theme.colorScheme.primary,
@@ -171,7 +175,7 @@ class _DashboardCurrentMedicationsGridList extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {},
-              child: const Text('View all'),
+              child: Text(context.il8n.generalViewAll),
             ),
           ],
         ),
@@ -179,10 +183,10 @@ class _DashboardCurrentMedicationsGridList extends StatelessWidget {
           valueListenable: context.viewModel<DashboardViewModel>().medications,
           builder: (BuildContext context, Iterable<Medication> medications, Widget? child) {
             if (medications.isEmpty) {
-              return const SizedBox(
+              return SizedBox(
                 height: 200,
                 child: Center(
-                  child: Text('No medications'),
+                  child: Text(context.il8n.noMedications),
                 ),
               );
             }
@@ -211,7 +215,7 @@ class _DashboardViewFindYourDoctorGridList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Find your doctor',
+              context.il8n.findYourDoctor,
               style: context.theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: context.theme.colorScheme.primary,
@@ -219,7 +223,7 @@ class _DashboardViewFindYourDoctorGridList extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {},
-              child: const Text('View all'),
+              child: Text(context.il8n.generalViewAll),
             ),
           ],
         ),

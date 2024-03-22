@@ -18,10 +18,20 @@ class SpacedColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> newChildren = children.expand((Widget child) sync* {
-      yield child;
-      yield SizedBox(height: spacing);
-    }).toList();
+    List<Widget> newChildren;
+
+    if (children.isNotEmpty) {
+      newChildren = children.expand((Widget child) sync* {
+        yield child;
+        yield SizedBox(height: spacing);
+      }).toList();
+
+      if (newChildren.last is SizedBox) {
+        newChildren.removeLast();
+      }
+    } else {
+      newChildren = children;
+    }
 
     return Column(
       crossAxisAlignment: crossAxisAlignment,

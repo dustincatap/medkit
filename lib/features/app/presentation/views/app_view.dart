@@ -35,7 +35,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    final Color primaryColor = Colors.blueGrey.shade900;
+    const Color primaryColor = Color(0xff202c46);
 
     return MaterialApp.router(
       routeInformationParser: _rootStackRouter.routeInformationParser,

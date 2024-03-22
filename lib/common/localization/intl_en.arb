@@ -2,8 +2,12 @@
     "generalCancel": "Cancel",
     "generalOk": "OK",
     "generalStart": "Start",
+    "generalViewAll": "View all",
+    "generalEditDetails": "Edit details",
     "landingMed": "Med",
     "landingKit": "Kit",
+    "allergenShellfish": "Shellfish",
+    "allergenFruit": "Fruit",
     "bloodTypeAPositive": "A+",
     "bloodTypeANegative": "A-",
     "bloodTypeBPositive": "B+",
@@ -16,6 +20,8 @@
     "appointmentTypeGeneral": "General",
     "appointmentTypeVideo": "Video appointment",
     "appointmentTypeChat": "Chat appointment",
+    "currentMedications": "Current medications",
+    "noMedications": "No medications",
     "medicineParacetamol": "Paracetamol",
     "medicineVitaminC": "Vitamin C",
     "medicineVitaminD": "Vitamin D",
@@ -26,7 +32,13 @@
     "medicalFieldNurse": "Nurse",
     "medicalFieldVirologist": "Virologist",
     "medicalFieldCardiologist": "Cardiologist",
+    "findYourDoctor": "Find your doctor",
     "genderOther": "Other",
     "genderMale": "Male",
-    "genderFemale": "Female"
+    "genderFemale": "Female",
+    "searchDoctorsAppointments": "Search doctors, appointments...",
+    "upcomingAppointments": "Upcoming appointments",
+    "noUpcomingAppointments": "No upcoming appointments",
+    "yearsOld": "{years} years old"
+
 }

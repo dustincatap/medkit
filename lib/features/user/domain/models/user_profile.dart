@@ -1,4 +1,6 @@
 import 'package:medkit/common/enums/gender.dart';
+import 'package:medkit/common/localization/generated/l10n.dart';
+import 'package:medkit/common/utils/date_time_utils.dart';
 
 class UserProfile {
   static UserProfile empty = UserProfile(
@@ -27,4 +29,9 @@ class UserProfile {
   });
 
   String get fullName => '$firstName $lastName';
+
+  String get localizedYearsOld {
+    final int age = DateTimeUtils.getYearsOld(dateOfBirth);
+    return Il8n.current.yearsOld(age);
+  }
 }

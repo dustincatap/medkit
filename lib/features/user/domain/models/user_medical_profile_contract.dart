@@ -2,6 +2,7 @@ import 'package:medkit/common/enums/allergen.dart';
 import 'package:medkit/common/enums/blood_type.dart';
 import 'package:medkit/common/enums/height_measurement.dart';
 import 'package:medkit/common/enums/weight_measurement.dart';
+import 'package:medkit/features/user/domain/models/user_emergency_contact_contract.dart';
 
 class UserMedicalProfileContract {
   final BloodType bloodType;
@@ -10,6 +11,7 @@ class UserMedicalProfileContract {
   final double height;
   final HeightMeasurement heightMeasurement;
   final Iterable<Allergen> allergies;
+  final Iterable<UserEmergencyContactContract> emergencyContacts;
 
   const UserMedicalProfileContract({
     required this.bloodType,
@@ -18,5 +20,6 @@ class UserMedicalProfileContract {
     required this.height,
     required this.heightMeasurement,
     required this.allergies,
+    required this.emergencyContacts,
   });
 }

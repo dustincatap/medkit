@@ -3,7 +3,7 @@ import 'package:medkit/common/enums/gender.dart';
 import 'package:medkit/features/user/domain/models/user_profile_contract.dart';
 
 @lazySingleton
-class UserWebService {
+class UserProfileWebService {
   Future<UserProfileContract> getUserProfile() async {
     return UserProfileContract(
       email: 'test@test.com',

@@ -23,6 +23,10 @@ class SpacedRow extends StatelessWidget {
       yield SizedBox(width: spacing);
     }).toList();
 
+    if (newChildren.last is SizedBox) {
+      newChildren.removeLast();
+    }
+
     return Row(
       crossAxisAlignment: crossAxisAlignment,
       mainAxisAlignment: mainAxisAlignment,
