@@ -32,12 +32,14 @@ class ViewModelBuilder<TViewModel> extends StatefulWidget {
   const ViewModelBuilder({
     required this.create,
     required this.builder,
+    this.initializationParameter,
     this.dispose,
     super.key,
   });
 
   final TViewModel Function(BuildContext context) create;
   final Widget Function(BuildContext context, TViewModel viewModel) builder;
+  final Object Function()? initializationParameter;
   final void Function(BuildContext context, TViewModel viewModel)? dispose;
 
   @override
@@ -60,6 +62,15 @@ class _ViewModelBuilderState<TViewModel> extends State<ViewModelBuilder<TViewMod
     super.initState();
 
     final TViewModel viewModel = widget.create(context);
+
+    if (viewModel is InitializableParameter) {
+      if (widget.initializationParameter == null) {
+        throw StateError('Initialization parameter is not provided');
+      }
+
+      final Object parameter = widget.initializationParameter!.call();
+      unawaited(viewModel.onInitialize(parameter));
+    }
 
     if (viewModel is Initializable) {
       unawaited(viewModel.onInitialize());

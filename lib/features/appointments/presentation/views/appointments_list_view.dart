@@ -1,41 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:medkit/common/resources/assets.gen.dart';
 import 'package:medkit/common/utils/intl_utils.dart';
+import 'package:medkit/core/infrastructure/dependency_injection/service_locator.dart';
 import 'package:medkit/core/presentation/widgets/context_extensions.dart';
 import 'package:medkit/core/presentation/widgets/spaced_column.dart';
 import 'package:medkit/core/presentation/widgets/spaced_row.dart';
+import 'package:medkit/core/presentation/widgets/views.dart';
 import 'package:medkit/features/appointments/domain/models/appointment.dart';
 import 'package:medkit/features/appointments/domain/models/appointment_category.dart';
 import 'package:medkit/features/appointments/domain/models/appointment_type.dart';
+import 'package:medkit/features/appointments/presentation/view_models/appointments_list_view_model.dart';
 
 class AppointmentsListView extends StatelessWidget {
-  final Iterable<Appointment> appointments;
-  final void Function(Appointment) onTap;
   final bool itemsExpanded;
 
-  const AppointmentsListView({
-    required this.appointments,
-    required this.onTap,
-    this.itemsExpanded = false,
-    super.key,
-  });
+  const AppointmentsListView({this.itemsExpanded = false, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: appointments.length,
-      itemBuilder: (BuildContext context, int index) {
-        final Appointment appointment = appointments.elementAt(index);
-        return _AppointmentListTile(
-          appointment,
-          () => onTap(appointment),
-          itemsExpanded: itemsExpanded,
-        );
+    return ViewModelBuilder<AppointmentsListViewModel>(
+      create: (_) => ServiceLocator.get<AppointmentsListViewModel>(),
+      builder: (BuildContext context, AppointmentsListViewModel viewModel) {
+        return _AppointmentsListViewBody(itemsExpanded: itemsExpanded);
       },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: 16);
+    );
+  }
+}
+
+class _AppointmentsListViewBody extends StatelessWidget {
+  final bool itemsExpanded;
+
+  const _AppointmentsListViewBody({required this.itemsExpanded});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<Iterable<Appointment>>(
+      valueListenable: context.viewModel<AppointmentsListViewModel>().appointments,
+      builder: (BuildContext context, Iterable<Appointment> appointments, Widget? child) {
+        if (appointments.isEmpty) {
+          return SizedBox(
+            height: 200,
+            child: Center(
+              child: Text(context.il8n.noUpcomingAppointments),
+            ),
+          );
+        }
+
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: appointments.length,
+          itemBuilder: (BuildContext context, int index) {
+            final Appointment appointment = appointments.elementAt(index);
+            return _AppointmentListTile(
+              appointment,
+              () {},
+              itemsExpanded: itemsExpanded,
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(height: 16);
+          },
+        );
       },
     );
   }

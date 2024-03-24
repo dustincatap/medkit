@@ -22,6 +22,9 @@ class NavigationRouterImpl extends $NavigationRouterImpl implements NavigationRo
       AutoRoute(page: LandingViewRoute.page, path: '/'),
       AutoRoute(page: DashboardViewRoute.page, path: '/dashboard'),
       AutoRoute(page: UserProfileViewRoute.page, path: '/user-profile'),
+      AutoRoute(page: YourAppointmentsListViewRoute.page, path: '/appointments'),
+      AutoRoute(page: BookYourAppointmentViewRoute.page, path: '/appointments/book'),
+      AutoRoute(page: MyMedicationGridListViewRoute.page, path: '/medications'),
     ];
   }
 }

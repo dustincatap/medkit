@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:medkit/common/enums/medical_field.dart';
 import 'package:medkit/common/resources/assets.gen.dart';
+import 'package:medkit/core/infrastructure/dependency_injection/service_locator.dart';
 import 'package:medkit/core/presentation/widgets/context_extensions.dart';
 import 'package:medkit/core/presentation/widgets/spaced_column.dart';
+import 'package:medkit/core/presentation/widgets/views.dart';
+import 'package:medkit/features/appointments/presentation/view_models/appointment_medical_grid_list_view_model.dart';
 
-class MedicalFieldGridListView extends StatelessWidget {
-  final void Function(MedicalField) onTap;
-
-  const MedicalFieldGridListView({required this.onTap, super.key});
+class AppointmentMedicalGridListView extends StatelessWidget {
+  const AppointmentMedicalGridListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<MedicalField> fields = <MedicalField>[...MedicalField.values];
-    fields.remove(MedicalField.unknown);
+    return ViewModelBuilder<AppointmentMedicalGridListViewModel>(
+      create: (_) => ServiceLocator.get<AppointmentMedicalGridListViewModel>(),
+      builder: (BuildContext context, AppointmentMedicalGridListViewModel viewModel) {
+        return const _MedicalFieldGridListViewBody();
+      },
+    );
+  }
+}
+
+class _MedicalFieldGridListViewBody extends StatelessWidget {
+  const _MedicalFieldGridListViewBody();
+
+  @override
+  Widget build(BuildContext context) {
+    final Iterable<MedicalField> medicalFields = context.viewModel<AppointmentMedicalGridListViewModel>().medicalFields;
 
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
@@ -23,10 +37,13 @@ class MedicalFieldGridListView extends StatelessWidget {
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
-      itemCount: fields.length,
+      itemCount: medicalFields.length,
       itemBuilder: (BuildContext context, int index) {
-        final MedicalField field = fields.elementAt(index);
-        return _MedicalFieldGridListItem(field, () => onTap(field));
+        final MedicalField field = medicalFields.elementAt(index);
+        return _MedicalFieldGridListItem(
+          field,
+          context.viewModel<AppointmentMedicalGridListViewModel>().onNavigateToAppointmentBooking,
+        );
       },
     );
   }
@@ -34,7 +51,7 @@ class MedicalFieldGridListView extends StatelessWidget {
 
 class _MedicalFieldGridListItem extends StatelessWidget {
   final MedicalField field;
-  final void Function() onTap;
+  final void Function(MedicalField) onTap;
 
   const _MedicalFieldGridListItem(this.field, this.onTap);
 
@@ -45,7 +62,7 @@ class _MedicalFieldGridListItem extends StatelessWidget {
       color: Colors.white,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: onTap,
+        onTap: () => onTap(field),
         child: SpacedColumn(
           spacing: 8,
           mainAxisAlignment: MainAxisAlignment.center,
