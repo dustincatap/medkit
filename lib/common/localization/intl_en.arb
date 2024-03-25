@@ -19,6 +19,7 @@
     "bloodTypeUnknown": "Unknown",
     "yourAppointments": "Your appointments",
     "bookYourAppointment": "Book your appointment",
+    "bookNowAppointment": "Book now",
     "appointmentTypeGeneral": "General",
     "appointmentTypeVideo": "Video appointment",
     "appointmentTypeChat": "Chat appointment",

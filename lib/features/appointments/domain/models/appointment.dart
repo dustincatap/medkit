@@ -6,7 +6,7 @@ class Appointment {
     title: '',
     doctor: '',
     date: DateTime.now(),
-    appointmentType: AppointmentType.general,
+    appointmentType: AppointmentType.chat,
     appointmentCategory: AppointmentCategory.general,
   );
 
